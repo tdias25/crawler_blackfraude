@@ -17,13 +17,19 @@ let crawlers = [
 
         for (productData of products) {
 
-            let expectedProduct = JsonProductFactory(productData)
-            let currentProduct = await crawler.findProduct(expectedProduct.getName())
+            try {
 
-            if (currentProduct.getPrice() <= expectedProduct.getPrice()) {
-                await telegramProductNotifier.notify(currentProduct)
-            } else {
-                console.log(` "${expectedProduct.getName()}" não está com preço legal :(`)
+                let expectedProduct = JsonProductFactory(productData)
+                let currentProduct = await crawler.findProduct(expectedProduct.getName())
+
+                if (currentProduct.getPrice() <= expectedProduct.getPrice()) {
+                    await telegramProductNotifier.notify(currentProduct)
+                } else {
+                    console.log(` "${expectedProduct.getName()}" não está com preço legal :(`)
+                }
+
+            } catch (error) {
+                // console.log(error)
             }
 
         }

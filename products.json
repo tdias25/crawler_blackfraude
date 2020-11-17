@@ -1,6 +1,38 @@
 [
     {
-        "name": "SSD PNY",
-        "price": 150
+        "name": "ASRock B450M Steel Legend",
+        "price": 799
+    },
+    {
+        "name": "SSD Adata XPG Gammix S11 Pro 1TB",
+        "price": 900
+    },
+    {
+        "name": "SSD Adata Falcon, 1TB",
+        "price": 900
+    },
+    {
+        "name": "SSD Adata XPG SX6000 1TB",
+        "price": 799
+    },
+    {
+        "name": "Processador AMD Ryzen 5 3600",
+        "price": 1400
+    },
+    {
+        "name": "Mousepad Gamer T-Dagger Geometry S",
+        "price": 60
+    },
+    {
+        "name": "Patriot Viper Steel 8GB (1x8GB), 3200MHz",
+        "price": 270
+    },
+    {
+        "name": "Placa de Vídeo Sapphire Pulse AMD Radeon RX 5600 XT",
+        "price": 2000
+    },
+    {
+        "name": "Cooler FAN DeepCool Gammaxx 400 V2",
+        "price": 130
     }
 ]

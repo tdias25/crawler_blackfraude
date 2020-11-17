@@ -28,12 +28,17 @@ const Kabum = (() => {
         let rawJsonString = htmlResponse.match(/{(.*)}/g)[0];
         let parsedJson = JSON.parse(rawJsonString)
 
+        if (parsedJson.listagem.length === 0) {
+            throw new Error('Cannot create product object, not found')
+        }
+
         let rawProduct = parsedJson.listagem[0]
 
         return product({
             name: rawProduct.nome,
             price: rawProduct.preco_desconto
         });
+
     }
 
     return {
