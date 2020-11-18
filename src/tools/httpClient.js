@@ -2,68 +2,63 @@
 
 const axios = require('axios')
 
-let httpClient = {
-    url: null,
-    params: {},
-    headers: {},
-    response: null,
-    rawHtmlResponse: null
-}
+let httpClient = (function () {
 
-httpClient.setHeaders = function (headers) {
-    this.headers = headers;
-    return this;
-}
+    let url, params, headers, response, rawHtmlResponse;
 
-httpClient.getHeaders = function () {
-    return this.headers
-}
+    let setHeaders = function (newHeaders) {
+        headers = newHeaders;
+    }
 
-httpClient.setParams = function (params) {
-    this.params = params;
-    return this;
-}
+    let getHeaders = () => headers;
 
-httpClient.getParams = function () {
-    return this.params;
-}
+    let setParams = function (newParams) {
+        params = newParams
+    }
 
-httpClient.getOptions = function () {
-    return this.options
-}
+    let getParams = () => params;
 
-httpClient.setUrl = function (url) {
-    this.url = url;
-    return this;
-}
+    let setUrl = function (newUrl) {
+        url = newUrl
+    }
 
-httpClient.getUrl = function () {
-    return this.url
-}
+    let getUrl = () => url;
 
-httpClient.post = function () {
+    let postRequest = async function () {
 
-    this.response = axios.post(this.getUrl(), {
-        data: this.getParams(),
-        headers: this.getHeaders()
-    })
+        response = await axios.post(getUrl(), {
+            data: getParams(),
+            headers: getHeaders()
+        })
 
-    return this.response
-}
+        return response
+    }
 
-httpClient.get = async function () {
+    let getRequest = async () => {
 
-    this.response = await axios.get(this.getUrl(), {
-        params: this.getParams(),
-        headers: this.getHeaders()
-    })
+        response = await axios.get(getUrl(), {
+            params: getParams(),
+            headers: getHeaders()
+        })
 
-    return this.response
-}
+        return response
+    }
 
-httpClient.getRawHtmlResponse = function () {
-    return this.response.data
-}
+    let getRawHtmlResponse = function () {
+        return response.data
+    }
 
+    return {
+        setHeaders,
+        getHeaders,
+        setUrl,
+        getUrl,
+        setParams,
+        getParams,
+        post: postRequest,
+        get: getRequest,
+        getRawHtmlResponse
+    }
+})()
 
 module.exports = httpClient

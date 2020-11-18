@@ -3,18 +3,19 @@ let product = require('../models/product')
 
 const Kabum = (() => {
 
-    const baseURL = 'https://m.kabum.com.br/busca'
+    const baseURL = 'https://m.kabum.com.br/'
 
     async function findProduct(productName) {
 
-        httpClient
-            .setUrl(baseURL)
-            .setHeaders({
-                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
-            })
-            .setParams({
-                string: productName
-            });
+        let searchProductUrl = baseURL + 'busca';
+
+        httpClient.setUrl(searchProductUrl)
+        httpClient.setHeaders({
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
+        })
+        httpClient.setParams({
+            string: productName
+        });
 
         await httpClient.get()
 
@@ -39,6 +40,10 @@ const Kabum = (() => {
             price: rawProduct.preco_desconto
         });
 
+    }
+
+    function makeProductUrl(path) {
+        return baseURL + path;
     }
 
     return {

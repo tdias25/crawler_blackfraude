@@ -1,6 +1,6 @@
 const httpClient = require('../tools/httpClient')
 
-let telegramClient = function ({telegramToken, telegramChatId, telegramMessage}) {
+let telegramClient = function ({ telegramToken, telegramChatId, telegramMessage }) {
 
     const baseUrl = 'https://api.telegram.org/bot';
 
@@ -30,12 +30,12 @@ let telegramClient = function ({telegramToken, telegramChatId, telegramMessage})
 
     let sendMessage = async () => {
 
-        httpClient
-            .setUrl(getUrl())
-            .setParams({
-                chat_id: getChatId(),
-                text: getMessage()
-            })
+        httpClient.setUrl(getUrl())
+
+        httpClient.setParams({
+            chat_id: getChatId(),
+            text: getMessage()
+        })
 
         return await httpClient.get();
     }
