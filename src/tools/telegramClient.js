@@ -37,7 +37,13 @@ let telegramClient = function ({ telegramToken, telegramChatId, telegramMessage 
             text: getMessage()
         })
 
-        return await httpClient.get();
+        let response = await httpClient.get();
+
+        if (response.status != 200) {
+            throw new Error('Telegram API: Could not send message')
+        }
+
+        return response.data
     }
 
     return Object.freeze({

@@ -9,7 +9,7 @@ let telegramProductNotifier = (() => {
         const telegramToken = process.env.TELEGRAM_CHAT_TOKEN;
         const telegramChatId = process.env.TELEGRAM_CHAT_ID;
 
-        const telegramMessage = makeMessage(product)
+        const telegramMessage = makeMessage(product, 'promotion')
 
         let telegram = telegramClient({
             telegramToken,
@@ -17,17 +17,22 @@ let telegramProductNotifier = (() => {
             telegramMessage
         });
 
-        let sendMessage = await telegram.sendMessage()
+        await telegram.sendMessage();
     }
 
-    function makeMessage(product) {
-        return `O produto "${product.getName()}" está com um preço gostosinho no azeite de "${product.getPrice()}"`;
+    function makeMessage(product, type) {
+
+        if (type === 'promotion') {
+            return `
+                O produto "${product.getName()}" está com um preço gostosinho no azeite de "${product.getPrice()}" \n-------------\n Link: ${product.getUrl()}
+            `;
+        }
     }
 
     return {
         notify
     }
 
-})()
+})();
 
 module.exports = telegramProductNotifier

@@ -3,12 +3,14 @@ let products = require('../products.json')
 let telegramProductNotifier = require('./helpers/telegramProductNotifier')
 const JsonProductFactory = require('./factories/JsonProductFactory')
 
-let Kabum = require('./crawlers/kabum')
+const Kabum = require('./crawlers/kabum')
 const Terabyte = require('./crawlers/terabyte')
+const Pichau = require('./crawlers/pichau')
 
 let crawlers = [
     Kabum,
-    // Terabyte
+    Pichau
+    // Terabyte,
 ];
 
 (async function () {
@@ -29,7 +31,7 @@ let crawlers = [
                 }
 
             } catch (error) {
-                // console.log(error)
+                console.log(error)
             }
 
         }

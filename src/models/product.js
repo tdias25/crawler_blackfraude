@@ -1,4 +1,4 @@
-module.exports = function ({ name, price }) {
+module.exports = function ({ name, price, code, url, metaData }) {
 
     setName(name)
     setPrice(price)
@@ -21,9 +21,18 @@ module.exports = function ({ name, price }) {
         }
     }
 
+    function setCode(code) {
+    }
+
+    function setUrl(url) {
+    }
+
     return Object.freeze({
         getName: () => name,
-        getPrice: () => price
+        getPrice: () => price,
+        getCode: () => code,
+        getUrl: () => url,
+        getMetaData: () => metaData
     })
 
 }

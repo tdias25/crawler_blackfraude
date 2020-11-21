@@ -3,13 +3,12 @@ let product = require('../models/product')
 
 const Kabum = (() => {
 
-    const baseURL = 'https://m.kabum.com.br/'
+    const searchUrl = 'https://servicespub.prod.api.aws.grupokabum.com.br/listagem/v1/busca';
+    const websiteUrl = 'https://m.kabum.com.br';
 
     async function findProduct(productName) {
 
-        let searchProductUrl = baseURL + 'busca';
-
-        httpClient.setUrl(searchProductUrl)
+        httpClient.setUrl(searchUrl)
         httpClient.setHeaders({
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
         })
@@ -17,33 +16,31 @@ const Kabum = (() => {
             string: productName
         });
 
-        await httpClient.get()
-
-        return makeProductFromHtmlResponse(
-            httpClient.getRawHtmlResponse()
-        )
+        let response = await httpClient.get()
+        
+        return makeProductFromJsonResponse(response)
     }
 
-    function makeProductFromHtmlResponse(htmlResponse) {
+    function makeProductFromJsonResponse(response) {
 
-        let rawJsonString = htmlResponse.match(/{(.*)}/g)[0];
-        let parsedJson = JSON.parse(rawJsonString)
-
-        if (parsedJson.listagem.length === 0) {
-            throw new Error('Cannot create product object, not found')
+        if (response.data.itens.count < 1) {
+            throw new Error('Product not found')
         }
 
-        let rawProduct = parsedJson.listagem[0]
+        let allProducts = response.data.listagem;
+        let firstProduct = allProducts[0]
 
         return product({
-            name: rawProduct.nome,
-            price: rawProduct.preco_desconto
+            name: firstProduct.nome,
+            price: firstProduct.preco_desconto,
+            code: firstProduct.codigo,
+            url: makeProductUrl(firstProduct.codigo)
         });
 
     }
 
-    function makeProductUrl(path) {
-        return baseURL + path;
+    function makeProductUrl(code) {
+        return websiteUrl + '/produto/' + code
     }
 
     return {

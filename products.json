@@ -1,7 +1,14 @@
 [
     {
         "name": "ASRock B450M Steel Legend",
-        "price": 799
+        "price": 799,
+        "meta": {
+            "kabum": {
+                "code": "XXX"
+            },
+            "terabyte": {},
+            "pichau": {}
+        }
     },
     {
         "name": "SSD Adata XPG Gammix S11 Pro 1TB",
